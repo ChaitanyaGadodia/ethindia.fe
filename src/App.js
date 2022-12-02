@@ -1,5 +1,5 @@
 import './App.css';
-import SimpleStore from './SimpleStore';
+// import SimpleStore from './SimpleStore';
 import { MoralisProvider } from "react-moralis";
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -9,7 +9,7 @@ function App() {
     <MoralisProvider initializeOnMount={false}>
       <div className="App">
         <Header />
-        <SimpleStore />
+        {/* <SimpleStore /> */}
         <Dashboard />
       </div>
     </MoralisProvider>
