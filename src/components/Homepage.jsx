@@ -20,7 +20,9 @@ const HomePage = ({
     if (account) {
       const result = await getAllHabitIds();
       setHabitIds(result);
-      const habits = await Promise.all[result.map((id) => getHabitById(id))];
+      const habits = await Promise.allSettled([
+        result.map((id) => getHabitById(id)),
+      ]);
       setHabits(habits);
     }
   });

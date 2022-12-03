@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BannerStrip } from 'web3uikit';
 import './App.css';
@@ -29,8 +29,19 @@ function App() {
         setSigner(tempSigner);
         const tempContracts = new ethers.Contract(CONTRACT_ADDRESS, contract_abi, tempSigner);
         setContract(tempContracts);
-      })
+      });
+
+      window.ethereum.on('accountsChanged', (accounts) => {
+        // If user has locked/logout from MetaMask, this resets the accounts array to empty
+        if (!accounts.length) {
+          // logic to handle what happens once MetaMask is locked
+          setAccount(null);
+        } else {
+          setAccount(accounts[0]);
+        }
+      });
     } else {
+      alert("Need to install Metamask!");
       throw new Error("Need to install Metamask!")
     }
   }
