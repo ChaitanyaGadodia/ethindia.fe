@@ -1,17 +1,19 @@
 // https://dev.to/sameer472/how-to-upload-files-on-ipfs-infuraio-using-react-56g
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useEffect, useState } from "react";
-import { IPFS_API_KEY_SECRET, IPFS_PROJECT_ID, IPFS_API_ENDPOINT, IPFS_FILE_ENDPOINT } from "../constants/ipfs";
 
 export default function FileUploader({ images, setImages }) {
   const [ipfs, setipfs] = useState(null);
 
   useEffect(() => {
     const newIpfs = ipfsHttpClient({
-      url: `${IPFS_API_ENDPOINT}api/v0`,
+      url: `${process.env.IPFS_API_ENDPOINT}api/v0`,
       headers: {
         Authorization:
-          "Basic " + window.btoa(IPFS_PROJECT_ID + ":" + IPFS_API_KEY_SECRET),
+          "Basic " +
+          window.btoa(
+            process.env.IPFS_PROJECT_ID + ":" + process.env.IPFS_API_KEY_SECRET
+          ),
       },
     });
     setipfs(newIpfs);
@@ -55,7 +57,7 @@ export default function FileUploader({ images, setImages }) {
       {images.map((image, index) => (
         <img
           alt={`Uploaded #${index + 1}`}
-          src={IPFS_FILE_ENDPOINT + image.Name}
+          src={process.env.IPFS_FILE_ENDPOINT + image.Name}
           style={{ maxWidth: "400px", margin: "15px" }}
           key={image.Hash.toString() + index}
         />
