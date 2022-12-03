@@ -28,6 +28,10 @@ const INITIAL_STATE = {
   endDate: undefined,
 };
 
+// todo: remove
+const totalReports = 30;
+const intervalInSeconds = 24 * 60 * 60;
+
 export default class AddHabit extends React.PureComponent {
   constructor(props) {
     super(props);

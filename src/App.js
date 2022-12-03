@@ -1,11 +1,18 @@
 import { ethers } from "ethers";
 import React, { useState } from "react";
 import './App.css';
-import Dashboard from './components/Dashboard';
-import HabitJournal from './components/HabitJournal';
+// import SimpleStore from './SimpleStore';
+
 import Header from './components/Header';
-import HowToUse from './components/Usage';
-import HabitsList from './components/User';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import SingleHabit from "./components/SingleHabit";
+import { BannerStrip } from 'web3uikit';
+
+import Homepage from './components/Homepage';
 import contract_abi from "./contract_abi.json";
 
 const CONTRACT_ADDRESS = "0x9506faa99444fA1fD8496E2B5e56991e1a807840";
@@ -41,20 +48,21 @@ function App() {
 
   return (
     <div className="App">
-      <Header onConnect={connectWalletHandler} />
-      <div>For Individuals / Groups / Workspaces</div>
-      <div>Put Money on the line!</div>
-      <div>{account}</div>
-      {account ?
-        <>
-          <Dashboard />
-          <div style={{ margin: "0.5rem auto", width: "480px", padding: "0.5rem", border: "1px solid rgb(193, 216, 231)", borderRadius: "1rem" }}>
-            <HabitsList addHabit={addHabit} />
-          </div>
-        </> : <HowToUse />}
-      <HabitJournal />
-    </div>
+      <BrowserRouter>
+        <Header onConnect={connectWalletHandler} />
+        <div>{account}</div>
+        {/* <SimpleStore /> */}
+        <Routes>
+          <Route exact path="/" element={<Homepage addHabit={addHabit} account={account} />} />
+          <Route exact path="/habit/:id" element={<SingleHabit />} />
+          <Route exact path="*" element={<BannerStrip
+            text="404: Page Not Found"
+            type="error"
+          />} />
+        </Routes>
 
+      </BrowserRouter>
+    </div>
   );
 }
 

@@ -107,7 +107,7 @@ export default function HabitsList({ addHabit }) {
         </TabList>
         <AddHabit addHabit={addHabit}/>
       </div>
-      <div style={{ maxHeight: "calc(100vh - 300px)", overflowY: "auto" }}>
+      <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
         {habits.map((habit) => {
           return (
             <HabitsCard
