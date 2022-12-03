@@ -11,9 +11,11 @@ const header = {
 export default function Header({ onConnect, account }) {
   return (
     <div style={header}>
-      <Typography onCopy={function noRefCheck() {}} variant="H2">
-        HabETH - Ready to finally stick to your Goals?
-      </Typography>
+      <a href="/">
+        <Typography variant="H2">
+          HabETH - Ready to finally stick to your Goals?
+        </Typography>
+      </a>
       <Button
         onClick={onConnect}
         disabled={!!account}

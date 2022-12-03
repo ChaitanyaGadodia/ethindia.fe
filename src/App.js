@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { BannerStrip } from 'web3uikit';
 import './App.css';
 import Header from './components/Header';
@@ -59,6 +59,8 @@ function App() {
       const result = await contract.createHabit(title, commitment, totalReports, intervalInSeconds, {
         value: ethers.utils.parseEther(amount.toString()),
       });
+      window.location.reload();
+      connectWalletHandler();
     } catch (e) {
     }
   }
@@ -86,14 +88,12 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header account={account} onConnect={connectWalletHandler} />
-        <Routes>
-          <Route exact path="/" element={<Homepage onConnect={connectWalletHandler} addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
-          <Route exact path="/habit/:habitId" element={<SingleHabit addJournal={addJournal} getHabitById={getHabitById} />} />
-          <Route exact path="*" element={<BannerStrip text="404: Page Not Found" type="error" />} />
-        </Routes>
-      </BrowserRouter>
+      <Header account={account} onConnect={connectWalletHandler} />
+      <Routes>
+        <Route exact path="/" element={<Homepage onConnect={connectWalletHandler} addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
+        <Route exact path="/habit/:habitId" element={<SingleHabit addJournal={addJournal} getHabitById={getHabitById} />} />
+        <Route exact path="*" element={<BannerStrip text="404: Page Not Found" type="error" />} />
+      </Routes>
     </div>
   );
 }
