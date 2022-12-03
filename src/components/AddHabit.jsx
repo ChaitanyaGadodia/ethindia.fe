@@ -30,7 +30,6 @@ const INITIAL_STATE = {
 
 // todo: remove
 const totalReports = 30;
-const intervalInSeconds = 24 * 60 * 60;
 
 export default class AddHabit extends React.PureComponent {
   constructor(props) {
@@ -60,7 +59,7 @@ export default class AddHabit extends React.PureComponent {
               commitment,
               amount,
               totalReports,
-              intervalInSeconds,
+              intervalInSeconds: interval,
             });
           }}
           onCloseButtonPressed={() => this.setState({ ...INITIAL_STATE })}
