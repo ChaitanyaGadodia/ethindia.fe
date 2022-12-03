@@ -2,6 +2,7 @@ import * as React from "react";
 import { Tab, TabList } from "web3uikit";
 import AddHabit from "./AddHabit";
 import HabitsCard from "./HabitsCard";
+import { useNavigate } from "react-router-dom";
 
 const habitsContainer = {
   margin: "1rem auto",
@@ -19,6 +20,7 @@ const HABIT_STATUS = [
 ];
 
 export default function HabitsList({ addHabit, habits }) {
+  const navigate = useNavigate();
   const [selectedType, setSelectedType] = React.useState(HABIT_STATUS[0].key);
   const [displayHabits, setDisplayHabits] = React.useState(habits);
 
@@ -52,13 +54,21 @@ export default function HabitsList({ addHabit, habits }) {
       <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
         {displayHabits.map((habit) => {
           return (
-            <HabitsCard
-              goal={habit.goal}
-              description={habit.description}
-              status={habit.status}
-              completedOn={habit.completedOn}
-              duration={habit.duration}
-            />
+            <div
+              key={habit.id}
+              onClick={() => {
+                navigate(`/habit/${habit.id}`);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <HabitsCard
+                goal={habit.goal}
+                description={habit.description}
+                status={habit.status}
+                completedOn={habit.completedOn}
+                duration={habit.duration}
+              />
+            </div>
           );
         })}
       </div>

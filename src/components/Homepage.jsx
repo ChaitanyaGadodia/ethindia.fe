@@ -60,6 +60,7 @@ const HomePage = ({
               }
 
               const habitObj = {
+                id: r.toString(),
                 goal: res2[1],
                 description: res2[2],
                 amount: ethers.utils.formatEther(res2[4]),
