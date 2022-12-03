@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import HabitsList from './components/User';
 import AddHabit from './components/AddHabit';
 import HowToUse from './components/Usage';
+import HabitJournal from './components/HabitJournal';
 
 function App() {
   const { account } = useMoralis();
@@ -23,6 +24,7 @@ function App() {
           <HabitsList />
           <AddHabit />
         </> : <HowToUse />}
+      <HabitJournal />
     </div>
 
   );
