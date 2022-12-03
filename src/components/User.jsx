@@ -76,7 +76,7 @@ const completedHabits = [
   },
 ];
 
-export default function HabitsList() {
+export default function HabitsList({ addHabit }) {
   const [selectedType, setSelectedType] = React.useState(HABIT_STATUS[0].key);
   const [habits, setHabits] = React.useState([]);
 
@@ -105,7 +105,7 @@ export default function HabitsList() {
             );
           })}
         </TabList>
-        <AddHabit />
+        <AddHabit addHabit={addHabit}/>
       </div>
       <div style={{ maxHeight: "calc(100vh - 300px)", overflowY: "auto" }}>
         {habits.map((habit) => {

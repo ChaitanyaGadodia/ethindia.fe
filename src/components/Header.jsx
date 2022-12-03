@@ -1,6 +1,5 @@
 import React from "react";
-import { ConnectButton, Typography } from "web3uikit";
-import { useMoralis } from "react-moralis";
+import { Button, ConnectButton, Typography } from "web3uikit";
 
 const header = {
   display: "flex",
@@ -9,15 +8,15 @@ const header = {
   padding: "1rem",
 };
 
-export default function Header() {
-  const { account } = useMoralis();
-
+export default function Header({ onConnect }) {
   return (
     <div style={header}>
       <Typography onCopy={function noRefCheck() {}} variant="H2">
         HabETH - Ready to finally stick to your Goals?
       </Typography>
-      <ConnectButton /> {/** Using the web3uikit */}
+      <Button onClick={onConnect} text="Connect Walletzz" />
+      {/* <ConnectButton /> */}
+      {/** Using the web3uikit */}
     </div>
   );
 }

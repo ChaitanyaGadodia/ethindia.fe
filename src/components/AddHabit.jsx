@@ -37,6 +37,7 @@ export default class AddHabit extends React.PureComponent {
   render() {
     const { goal, description, interval, partner, amount, endDate, openModal } =
       this.state;
+    const { addHabit } = this.props;
 
     return (
       <>
@@ -49,7 +50,7 @@ export default class AddHabit extends React.PureComponent {
         <Modal
           isVisible={openModal}
           onCancel={() => this.setState({ ...INITIAL_STATE })}
-          onOk={() => {}}
+          onOk={addHabit}
           onCloseButtonPressed={() => this.setState({ ...INITIAL_STATE })}
           width="500px"
           title="Add Habit"
