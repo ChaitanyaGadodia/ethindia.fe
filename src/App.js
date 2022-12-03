@@ -1,24 +1,30 @@
 import './App.css';
 // import SimpleStore from './SimpleStore';
-import { MoralisProvider } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import HabitsList from './components/User';
 import AddHabit from './components/AddHabit';
+import HowToUse from './components/Usage';
 
 function App() {
+  const { account } = useMoralis();
+
   return (
-    <MoralisProvider initializeOnMount={false}>
-      <div className="App">
-        <Header />
-        <div>For Individuals / Groups / Workspaces</div>
-        <div>Put Money on the line!</div>
-        {/* <SimpleStore /> */}
-        <Dashboard />
-        <HabitsList />
-        <AddHabit />
-      </div>
-    </MoralisProvider>
+
+    <div className="App">
+      <Header />
+      <div>For Individuals / Groups / Workspaces</div>
+      <div>Put Money on the line!</div>
+      {/* <SimpleStore /> */}
+      {account ?
+        <>
+          <Dashboard />
+          <HabitsList />
+          <AddHabit />
+        </> : <HowToUse />}
+    </div>
+
   );
 }
 
