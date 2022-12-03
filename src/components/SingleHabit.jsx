@@ -96,7 +96,7 @@ const SingleHabit = ({ addJournal, getHabitById }) => {
               </div>
             </React.Fragment>
           </Hero>
-          <HabitJournal addJournal={addJournal} />
+          <HabitJournal addJournal={addJournal} habitId={habitId} />
         </>
       )}
       {status === LOADING && (

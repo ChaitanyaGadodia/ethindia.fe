@@ -17,7 +17,7 @@ export default class HabitJournal extends React.PureComponent {
 
   render() {
     const { fileUrls, journal } = this.state;
-    const { addJournal } = this.props;
+    const { addJournal, habitId } = this.props;
 
     return (
       <div style={{ minWidth: "320px", padding: "10px" }}>
@@ -37,7 +37,7 @@ export default class HabitJournal extends React.PureComponent {
         <Button
           text="Add Journal"
           onClick={() => {
-            addJournal();
+            addJournal(habitId, journal, fileUrls.toString());
           }}
         />
       </div>
