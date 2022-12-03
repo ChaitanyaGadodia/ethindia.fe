@@ -59,7 +59,7 @@ function App() {
       <BrowserRouter>
         <Header onConnect={connectWalletHandler} />
         <Routes>
-          <Route exact path="/" element={<Homepage addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
+          <Route exact path="/" element={<Homepage onConnect={connectWalletHandler} addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
           <Route exact path="/habit/:id" element={<SingleHabit />} />
           <Route exact path="*" element={<BannerStrip text="404: Page Not Found" type="error" />} />
         </Routes>

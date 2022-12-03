@@ -6,7 +6,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 
-const HomePage = ({ addHabit, account, getHabitById, getAllHabitIds }) => {
+const HomePage = ({
+  addHabit,
+  account,
+  getHabitById,
+  getAllHabitIds,
+  onConnect,
+}) => {
   const [habits, setHabits] = useState([]);
   const [habitIds, setHabitIds] = useState([]);
 
@@ -42,7 +48,7 @@ const HomePage = ({ addHabit, account, getHabitById, getAllHabitIds }) => {
           </div>
         </>
       ) : (
-        <HowToUse />
+        <HowToUse onConnect={onConnect} />
       )}
     </React.Fragment>
   );

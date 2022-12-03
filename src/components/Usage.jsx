@@ -8,14 +8,14 @@ const stepperDiv = {
   maxWidth: "500px",
 };
 
-const HowToUse = () => {
+const HowToUse = ({ onConnect }) => {
   return (
     <div style={stepperDiv}>
       <Typography variant="h1">
         <strong>How to Use</strong>
       </Typography>
       <Stepper
-        // onComplete={() => {}}
+        onComplete={onConnect}
         // onNext={() => {}}
         // onPrev={() => {}}
         completeMessage=""
