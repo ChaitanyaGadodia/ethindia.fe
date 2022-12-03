@@ -7,12 +7,12 @@ export default function FileUploader({ images, setImages }) {
 
   useEffect(() => {
     const newIpfs = ipfsHttpClient({
-      url: `${process.env.IPFS_API_ENDPOINT}api/v0`,
+      url: `${process.env.REACT_APP_IPFS_API_ENDPOINT}api/v0`,
       headers: {
         Authorization:
           "Basic " +
           window.btoa(
-            process.env.IPFS_PROJECT_ID + ":" + process.env.IPFS_API_KEY_SECRET
+            process.env.REACT_APP_IPFS_PROJECT_ID + ":" + process.env.REACT_APP_IPFS_API_KEY_SECRET
           ),
       },
     });
@@ -57,7 +57,7 @@ export default function FileUploader({ images, setImages }) {
       {images.map((image, index) => (
         <img
           alt={`Uploaded #${index + 1}`}
-          src={process.env.IPFS_FILE_ENDPOINT + image.Name}
+          src={process.env.REACT_APP_IPFS_FILE_ENDPOINT + image.Name}
           style={{ maxWidth: "400px", margin: "15px" }}
           key={image.Hash.toString() + index}
         />
