@@ -40,6 +40,12 @@ function App() {
           setAccount(accounts[0]);
         }
       });
+
+      window.ethereum.on('chainChanged', () => {
+        // If user has locked/logout from MetaMask, this resets the accounts array to empty
+        setAccount(null);
+      });
+
     } else {
       alert("Need to install Metamask!");
       throw new Error("Need to install Metamask!")
@@ -64,6 +70,12 @@ function App() {
     const result = await contract.getHabit(id);
     return result;
   }
+
+  useEffect(() => {
+    if (window.ethereum.isConnected()) {
+      connectWalletHandler();
+    }
+  }, []);
 
   return (
     <div className="App">
