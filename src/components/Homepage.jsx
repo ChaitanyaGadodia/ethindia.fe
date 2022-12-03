@@ -20,9 +20,7 @@ const HomePage = ({
     if (account) {
       const result = await getAllHabitIds();
       setHabitIds(result);
-      const habits = await Promise.allSettled([
-        result.map((id) => getHabitById(id)),
-      ]);
+      const habits = await Promise.all([result.map((id) => getHabitById(id))]);
       setHabits(habits);
     }
   });
@@ -45,7 +43,7 @@ const HomePage = ({
               borderRadius: "1rem",
             }}
           >
-            <div>{habits && habits.length}</div>
+            <div>{JSON.stringify(habits)}</div>
             <HabitsList addHabit={addHabit} />
           </div>
         </>
