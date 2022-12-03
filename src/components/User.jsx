@@ -2,6 +2,7 @@ import * as React from "react";
 import { Tab, TabList } from "web3uikit";
 import AddHabit from "./AddHabit";
 import HabitsCard from "./HabitsCard";
+import { useNavigate } from "react-router-dom";
 
 const habitsContainer = {
   margin: "1rem auto",
@@ -18,72 +19,15 @@ const HABIT_STATUS = [
   },
 ];
 
-const completedHabits = [
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    duration: "2 weeks",
-    status: "Active",
-  },
-];
-
-export default function HabitsList({ addHabit }) {
+export default function HabitsList({ addHabit, habits }) {
+  const navigate = useNavigate();
   const [selectedType, setSelectedType] = React.useState(HABIT_STATUS[0].key);
-  const [habits, setHabits] = React.useState([]);
+  const [displayHabits, setDisplayHabits] = React.useState(habits);
 
   React.useEffect(() => {
     // Get the Data for habits and set it
-    setHabits(completedHabits);
-  }, [selectedType]);
+    setDisplayHabits(habits.filter((habit) => habit.status === selectedType));
+  }, [selectedType, habits]);
 
   return (
     <div style={habitsContainer}>
@@ -105,18 +49,26 @@ export default function HabitsList({ addHabit }) {
             );
           })}
         </TabList>
-        <AddHabit addHabit={addHabit}/>
+        <AddHabit addHabit={addHabit} />
       </div>
       <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
-        {habits.map((habit) => {
+        {displayHabits.map((habit) => {
           return (
-            <HabitsCard
-              goal={habit.goal}
-              description={habit.description}
-              status={habit.status}
-              completedOn={habit.completedOn}
-              duration={habit.duration}
-            />
+            <div
+              key={habit.id}
+              onClick={() => {
+                navigate(`/habit/${habit.id}`);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <HabitsCard
+                goal={habit.goal}
+                description={habit.description}
+                status={habit.status}
+                completedOn={habit.completedOn}
+                duration={habit.duration}
+              />
+            </div>
           );
         })}
       </div>

@@ -33,10 +33,10 @@ export default function CompletedHabitsCard({
     <div style={container}>
       <div style={innerContainer}>
         <Typography>{goal}</Typography>
-        {status === "Completed" && completedOn && (
+        {status === "COMPLETED" && completedOn && (
           <div style={badge}>{`Completed ${completedOn}`}</div>
         )}
-        {status === "Active" && (
+        {status === "ACTIVE" && (
           <div style={{ ...badge, background: "rgb(235, 187, 0)" }}>Active</div>
         )}
       </div>
