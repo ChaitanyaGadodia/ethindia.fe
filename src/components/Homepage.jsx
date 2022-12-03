@@ -5,6 +5,9 @@ import HowToUse from "./Usage";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
+import contract_abi from "../contract_abi.json";
+import { ethers } from "ethers";
+const CONTRACT_ADDRESS = "0x487DeBAF8b793425163594F730520234F46d03C4";
 
 const HomePage = ({
   addHabit,
@@ -16,18 +19,53 @@ const HomePage = ({
   const [habits, setHabits] = useState([]);
   const [habitIds, setHabitIds] = useState([]);
 
-  const fetchHabits = useCallback(async () => {
-    if (account) {
-      const result = await getAllHabitIds();
-      setHabitIds(result);
-      const habits = await Promise.all([result.map((id) => getHabitById(id))]);
-      setHabits(habits);
-    }
-  });
+  // const fetchHabits = useCallback(async () => {
+  //   if (account) {
+  //     const result = await getAllHabitIds();
+  //     setHabitIds(result);
+  //     const habits = await Promise.all([result.map((id) => getHabitById(id))]);
+  //     setHabits(habits);
+  //   }
+  // });
+
+  const fetchHabits = React.useCallback(async () => {
+    const provider1 = new ethers.providers.JsonRpcProvider(
+      "https://rpc.ankr.com/polygon_mumbai"
+    );
+
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      contract_abi,
+      provider1
+    );
+
+    contract
+      .getUserHabits(account)
+      .then((res) => {
+        res.map((r) => {
+          contract
+            .getHabit(r)
+            .then((res2) => {
+              const habitObj = {
+                goal: res2[1],
+                description: res2[2],
+                amount: ethers.utils.formatEther(res2[5].toString()),
+                duration: res2[5].toNumber() * res2[6].toNumber(), // convert to no.
+                status: res2[7] ? "COMPLETED" : "ACTIVE",
+                successCount: res2[8].toNumber(),
+                missedCount: res2[9].toNumber(),
+              };
+              setHabits([...habits, habitObj]);
+            })
+            .catch((e) => {});
+        });
+      })
+      .catch((e) => {});
+  }, [account]);
 
   useEffect(() => {
     fetchHabits();
-  });
+  }, [account]);
 
   return (
     <React.Fragment>
@@ -43,8 +81,7 @@ const HomePage = ({
               borderRadius: "1rem",
             }}
           >
-            <div>{JSON.stringify(habits)}</div>
-            <HabitsList addHabit={addHabit} />
+            <HabitsList addHabit={addHabit} habits={habits} />
           </div>
         </>
       ) : (

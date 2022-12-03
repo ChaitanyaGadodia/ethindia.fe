@@ -8,7 +8,7 @@ import Homepage from './components/Homepage';
 import SingleHabit from "./components/SingleHabit";
 import contract_abi from "./contract_abi.json";
 
-const CONTRACT_ADDRESS = "0x9506faa99444fA1fD8496E2B5e56991e1a807840";
+const CONTRACT_ADDRESS = "0x487DeBAF8b793425163594F730520234F46d03C4";
 
 function App() {
 
@@ -54,6 +54,8 @@ function App() {
 
   const addHabit = async ({ title, commitment, amount, totalReports, intervalInSeconds }) => {
     try {
+      // const check = await contract.getUserHabitNonce(account);
+      // title = check.toString() + ". " + title;
       const result = await contract.createHabit(title, commitment, totalReports, intervalInSeconds, {
         value: ethers.utils.parseEther(amount.toString()),
       });
@@ -75,6 +77,7 @@ function App() {
     const result = await contract.report(habitId, journalEntry, proofUrl);
     return result
   }
+
   useEffect(() => {
     if (window.ethereum.isConnected()) {
       connectWalletHandler();

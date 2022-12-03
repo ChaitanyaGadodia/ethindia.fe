@@ -18,72 +18,14 @@ const HABIT_STATUS = [
   },
 ];
 
-const completedHabits = [
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    completedOn: "12/12/22 13:35:23",
-    duration: "2 weeks",
-    status: "Completed",
-  },
-  {
-    goal: "Running?",
-    description: "Go for a morning run.",
-    duration: "2 weeks",
-    status: "Active",
-  },
-];
-
-export default function HabitsList({ addHabit }) {
+export default function HabitsList({ addHabit, habits }) {
   const [selectedType, setSelectedType] = React.useState(HABIT_STATUS[0].key);
-  const [habits, setHabits] = React.useState([]);
+  const [displayHabits, setDisplayHabits] = React.useState(habits);
 
   React.useEffect(() => {
     // Get the Data for habits and set it
-    setHabits(completedHabits);
-  }, [selectedType]);
+    setDisplayHabits(habits.filter((habit) => habit.status === selectedType));
+  }, [selectedType, habits]);
 
   return (
     <div style={habitsContainer}>
@@ -105,10 +47,10 @@ export default function HabitsList({ addHabit }) {
             );
           })}
         </TabList>
-        <AddHabit addHabit={addHabit}/>
+        <AddHabit addHabit={addHabit} />
       </div>
       <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
-        {habits.map((habit) => {
+        {displayHabits.map((habit) => {
           return (
             <HabitsCard
               goal={habit.goal}
