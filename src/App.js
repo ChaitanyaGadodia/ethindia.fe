@@ -2,11 +2,15 @@ import './App.css';
 // import SimpleStore from './SimpleStore';
 import { useMoralis } from "react-moralis";
 import Header from './components/Header';
-import Dashboard from './components/Dashboard';
-import HabitsList from './components/User';
-import AddHabit from './components/AddHabit';
-import HowToUse from './components/Usage';
-import HabitJournal from './components/HabitJournal';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import SingleHabit from "./components/SingleHabit";
+import { BannerStrip } from 'web3uikit';
+
+import Homepage from './components/Homepage';
 
 function App() {
   const { account } = useMoralis();
@@ -14,20 +18,20 @@ function App() {
   return (
 
     <div className="App">
-      <Header />
-      <div>For Individuals / Groups / Workspaces</div>
-      <div>Put Money on the line!</div>
-      {/* <SimpleStore /> */}
-      {account ?
-        <>
-          <Dashboard />
-          <div style={{ margin: "0.5rem auto", width: "480px", padding: "0.5rem", border: "1px solid rgb(193, 216, 231)", borderRadius: "1rem" }}>
-            <HabitsList />
-          </div>
-        </> : <HowToUse />}
-      <HabitJournal />
-    </div>
+      <BrowserRouter>
+        <Header />
+        {/* <SimpleStore /> */}
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/habit/:id" element={<SingleHabit />} />
+          <Route exact path="*" element={<BannerStrip
+            text="404: Page Not Found"
+            type="error"
+          />} />
+        </Routes>
 
+      </BrowserRouter>
+    </div>
   );
 }
 
