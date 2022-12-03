@@ -3,6 +3,7 @@ import './App.css';
 import { MoralisProvider } from "react-moralis";
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
+import HabitsList from './components/User';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Header />
         {/* <SimpleStore /> */}
         <Dashboard />
+        <HabitsList />
       </div>
     </MoralisProvider>
   );
