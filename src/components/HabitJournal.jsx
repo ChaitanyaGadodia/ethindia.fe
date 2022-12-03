@@ -18,14 +18,16 @@ export default class HabitJournal extends React.PureComponent {
   render() {
     const { fileUrls, journal } = this.state;
     return (
-      <div style={{ width: "320px", padding: "10px" }}>
+      <div style={{ minWidth: "320px", padding: "10px" }}>
         <DatePicker disabled label="Record date" style={inputStyle} />
-        <TextArea
-          label="My Commitment Journal"
-          value={journal}
-          onChange={(e) => this.setState({ journal: e.target.value })}
-          style={inputStyle}
-        />
+        <div style={inputStyle}>
+          <TextArea
+            label="My Commitment Journal"
+            value={journal}
+            onChange={(e) => this.setState({ journal: e.target.value })}
+            width="100%"
+          />
+        </div>
         <FileUploader
           images={fileUrls}
           setImages={(val) => this.setState({ fileUrls: val })}

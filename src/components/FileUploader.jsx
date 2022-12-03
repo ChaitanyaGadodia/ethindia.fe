@@ -12,7 +12,9 @@ export default function FileUploader({ images, setImages }) {
         Authorization:
           "Basic " +
           window.btoa(
-            process.env.REACT_APP_IPFS_PROJECT_ID + ":" + process.env.REACT_APP_IPFS_API_KEY_SECRET
+            process.env.REACT_APP_IPFS_PROJECT_ID +
+              ":" +
+              process.env.REACT_APP_IPFS_API_KEY_SECRET
           ),
       },
     });
@@ -44,24 +46,30 @@ export default function FileUploader({ images, setImages }) {
   };
 
   return (
-    <>
-      {ipfs && (
-        <>
-          <h3>Upload files</h3>
+    <div style={{ margin: "10px" }}>
+      <h3>Upload Files</h3>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {images.map((image, index) => (
+          <img
+            alt={`Uploaded #${index + 1}`}
+            src={process.env.REACT_APP_IPFS_FILE_ENDPOINT + image.path}
+            style={{ maxWidth: "400px", margin: "15px" }}
+            key={image.cid.toString() + index}
+          />
+        ))}
+        {ipfs && (
           <form onSubmit={onSubmitHandler}>
-            <input type="file" name="file" multiple />
+            <input type="file" name="file" />
             <button type="submit">Upload file</button>
           </form>
-        </>
-      )}
-      {images.map((image, index) => (
-        <img
-          alt={`Uploaded #${index + 1}`}
-          src={process.env.REACT_APP_IPFS_FILE_ENDPOINT + image.Name}
-          style={{ maxWidth: "400px", margin: "15px" }}
-          key={image.Hash.toString() + index}
-        />
-      ))}
-    </>
+        )}
+      </div>
+    </div>
   );
 }
