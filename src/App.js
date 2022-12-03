@@ -57,7 +57,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header onConnect={connectWalletHandler} />
+        <Header account={account} onConnect={connectWalletHandler} />
         <Routes>
           <Route exact path="/" element={<Homepage onConnect={connectWalletHandler} addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
           <Route exact path="/habit/:id" element={<SingleHabit />} />
