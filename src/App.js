@@ -12,6 +12,7 @@ function App() {
       <div className="App">
         <Header />
         <div>For Individuals / Groups / Workspaces</div>
+        <div>Put Money on the line!</div>
         {/* <SimpleStore /> */}
         <Dashboard />
         <HabitsList />

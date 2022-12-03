@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Input, Modal, Select, Typography } from "web3uikit";
+import { Button, DatePicker, Input, Modal, Select, TextArea } from "web3uikit";
 
 const inputStyle = {
   margin: "10px",
@@ -14,8 +14,8 @@ const formStyle = {
 const INTERVALS = [
   { label: "Daily", id: 1 },
   { label: "Weekly", id: 2 },
-  { label: "Bi-weekly", id: 3 },
-  { label: "Monhtly", id: 4 },
+  { label: "Monhtly", id: 3 },
+  { label: "Once, at the end", id: 4 },
 ];
 
 const INITIAL_STATE = {
@@ -24,6 +24,7 @@ const INITIAL_STATE = {
   interval: "Daily",
   parner: "",
   amount: undefined,
+  endDate: undefined,
 };
 
 export default class AddHabit extends React.PureComponent {
@@ -33,7 +34,8 @@ export default class AddHabit extends React.PureComponent {
   }
 
   render() {
-    const { description, interval, partner, amount, openModal } = this.state;
+    const { description, interval, partner, amount, endDate, openModal } =
+      this.state;
 
     return (
       <>
@@ -47,17 +49,24 @@ export default class AddHabit extends React.PureComponent {
           onOk={() => {}}
           onCloseButtonPressed={() => this.setState({ ...INITIAL_STATE })}
           width="500px"
+          title="Add Habit"
         >
           <div style={formStyle}>
-            <Typography>Add Habit</Typography>
             <Input
-              label="Description"
+              label="Your Goal"
               onChange={(e) => this.setState({ description: e.target.value })}
               value={description}
               style={inputStyle}
             />
+            <TextArea
+              label="I commit to"
+              onChange={(e) => this.setState({ description: e.target.value })}
+              value={description}
+              style={inputStyle}
+              width="320px"
+            />
             <Select
-              label="Interval"
+              label="I'd like to report"
               onChange={(e) => {
                 this.setState({ interval: e[0] });
               }}
@@ -65,6 +74,13 @@ export default class AddHabit extends React.PureComponent {
               options={INTERVALS}
               style={inputStyle}
               width="320px"
+            />
+            <DatePicker
+              label="Commitment ends on"
+              value={endDate}
+              onChange={({ date }) => this.setState({ endDate: date })}
+              min={new Date()}
+              style={{ width: "320px", margin: "10px" }}
             />
             <Input
               label="Accountability Partner Wallet Address"
