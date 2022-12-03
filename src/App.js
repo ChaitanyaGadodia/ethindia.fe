@@ -1,13 +1,14 @@
-import './App.css';
-import React, { useState } from "react";
-import Header from './components/Header';
-import Dashboard from './components/Dashboard';
-import HabitsList from './components/User';
-import AddHabit from './components/AddHabit';
-import HowToUse from './components/Usage';
-import HabitJournal from './components/HabitJournal';
-import contract_abi from "./contract_abi.json"
 import { ethers } from "ethers";
+import React, { useState } from "react";
+import './App.css';
+import Dashboard from './components/Dashboard';
+import HabitJournal from './components/HabitJournal';
+import Header from './components/Header';
+import HowToUse from './components/Usage';
+import HabitsList from './components/User';
+import contract_abi from "./contract_abi.json";
+
+const CONTRACT_ADDRESS = "0x9506faa99444fA1fD8496E2B5e56991e1a807840";
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
         setProvider(tempProvider);
         const tempSigner = tempProvider.getSigner();
         setSigner(tempSigner);
-        const tempContracts = new ethers.Contract("0x9506faa99444fA1fD8496E2B5e56991e1a807840", contract_abi, tempSigner);
+        const tempContracts = new ethers.Contract(CONTRACT_ADDRESS, contract_abi, tempSigner);
         setContract(tempContracts);
       })
     } else {
@@ -32,9 +33,9 @@ function App() {
     }
   }
 
-  const addHabit = () => {
-    contract.createHabit("Pushup", "25 Pushups daily", 30, 86400, {
-      value: ethers.utils.parseEther("0.001"),
+  const addHabit = ({ title, commitment, amount, totalReports, intervalInSeconds }) => {
+    contract.createHabit(title, commitment, totalReports, intervalInSeconds, {
+      value: ethers.utils.parseEther(amount.toString()),
     });
   }
 
@@ -44,7 +45,6 @@ function App() {
       <div>For Individuals / Groups / Workspaces</div>
       <div>Put Money on the line!</div>
       <div>{account}</div>
-      {/* <SimpleStore /> */}
       {account ?
         <>
           <Dashboard />

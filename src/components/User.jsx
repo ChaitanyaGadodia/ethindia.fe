@@ -1,7 +1,7 @@
 import * as React from "react";
-import HabitsCard from "./HabitsCard";
-import { TabList, Tab } from "web3uikit";
+import { Tab, TabList } from "web3uikit";
 import AddHabit from "./AddHabit";
+import HabitsCard from "./HabitsCard";
 
 const habitsContainer = {
   margin: "1rem auto",

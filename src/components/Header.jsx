@@ -14,7 +14,7 @@ export default function Header({ onConnect }) {
       <Typography onCopy={function noRefCheck() {}} variant="H2">
         HabETH - Ready to finally stick to your Goals?
       </Typography>
-      <Button onClick={onConnect} text="Connect Walletzz" />
+      <Button onClick={onConnect} text="Connect Wallet" />
       {/* <ConnectButton /> */}
       {/** Using the web3uikit */}
     </div>
