@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <div style={header}>
       <Typography onCopy={function noRefCheck() {}} variant="H2">
-        App Name
+        HabETH - Ready to finally stick to your Goals?
       </Typography>
       <ConnectButton /> {/** Using the web3uikit */}
     </div>
