@@ -5,9 +5,7 @@ import Dashboard from "./Dashboard";
 import HabitsList from "./User";
 import HowToUse from "./Usage";
 
-const HomePage = () => {
-  const { account } = useMoralis();
-
+const HomePage = ({ addHabit, account }) => {
   return (
     <React.Fragment>
       {account ? (
@@ -22,7 +20,7 @@ const HomePage = () => {
               borderRadius: "1rem",
             }}
           >
-            <HabitsList />
+            <HabitsList addHabit={addHabit} />
           </div>
         </>
       ) : (

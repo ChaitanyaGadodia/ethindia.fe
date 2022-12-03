@@ -12,21 +12,25 @@ const formStyle = {
 };
 
 const INTERVALS = [
-  { label: "Daily", id: 1 },
-  { label: "Weekly", id: 2 },
-  { label: "Monthly", id: 3 },
+  { label: "Daily", id: 24 * 60 * 60 },
+  { label: "Weekly", id: 24 * 60 * 60 * 7 },
+  { label: "Monthly", id: 24 * 60 * 60 * 31 },
   { label: "Once, at the end", id: 4 },
 ];
 
 const INITIAL_STATE = {
   openModal: false,
-  goal: "",
-  description: "",
+  title: "",
+  commitment: "",
   interval: "Daily",
   partner: "",
-  amount: undefined,
+  amount: "",
   endDate: undefined,
 };
+
+// todo: remove
+const totalReports = 30;
+const intervalInSeconds = 24 * 60 * 60;
 
 export default class AddHabit extends React.PureComponent {
   constructor(props) {
@@ -35,8 +39,9 @@ export default class AddHabit extends React.PureComponent {
   }
 
   render() {
-    const { goal, description, interval, partner, amount, endDate, openModal } =
+    const { title, commitment, interval, partner, amount, endDate, openModal } =
       this.state;
+    const { addHabit } = this.props;
 
     return (
       <>
@@ -49,7 +54,15 @@ export default class AddHabit extends React.PureComponent {
         <Modal
           isVisible={openModal}
           onCancel={() => this.setState({ ...INITIAL_STATE })}
-          onOk={() => {}}
+          onOk={() => {
+            addHabit({
+              title,
+              commitment,
+              amount,
+              totalReports,
+              intervalInSeconds,
+            });
+          }}
           onCloseButtonPressed={() => this.setState({ ...INITIAL_STATE })}
           width="500px"
           title="Add Habit"
@@ -57,14 +70,14 @@ export default class AddHabit extends React.PureComponent {
           <div style={formStyle}>
             <Input
               label="Your Goal"
-              onChange={(e) => this.setState({ goal: e.target.value })}
-              value={goal}
+              onChange={(e) => this.setState({ title: e.target.value })}
+              value={title}
               style={inputStyle}
             />
             <TextArea
               label="I commit to"
-              onChange={(e) => this.setState({ description: e.target.value })}
-              value={description}
+              onChange={(e) => this.setState({ commitment: e.target.value })}
+              value={commitment}
               style={inputStyle}
               width="320px"
             />
