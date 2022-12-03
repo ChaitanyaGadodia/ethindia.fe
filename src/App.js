@@ -54,13 +54,18 @@ function App() {
     return result;
   }
 
+  const addJournal = async (habitId, journalEntry, proofUrl) => {
+    const result = await contract.report(habitId, journalEntry, proofUrl);
+    return result
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
         <Header onConnect={connectWalletHandler} />
         <Routes>
           <Route exact path="/" element={<Homepage addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
-          <Route exact path="/habit/:id" element={<SingleHabit />} />
+          <Route exact path="/habit/:id" element={<SingleHabit addJournal={addJournal} />} />
           <Route exact path="*" element={<BannerStrip text="404: Page Not Found" type="error" />} />
         </Routes>
       </BrowserRouter>

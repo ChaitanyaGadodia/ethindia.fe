@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DatePicker, TextArea } from "web3uikit";
+import { Button, DatePicker, TextArea } from "web3uikit";
 import FileUploader from "./FileUploader";
 
 const inputStyle = {
@@ -17,6 +17,8 @@ export default class HabitJournal extends React.PureComponent {
 
   render() {
     const { fileUrls, journal } = this.state;
+    const { addJournal } = this.props;
+
     return (
       <div style={{ minWidth: "320px", padding: "10px" }}>
         <DatePicker disabled label="Record date" style={inputStyle} />
@@ -31,6 +33,12 @@ export default class HabitJournal extends React.PureComponent {
         <FileUploader
           images={fileUrls}
           setImages={(val) => this.setState({ fileUrls: val })}
+        />
+        <Button
+          text="Add Journal"
+          onClick={() => {
+            addJournal();
+          }}
         />
       </div>
     );

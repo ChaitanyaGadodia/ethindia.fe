@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Hero, Typography, ENSAvatar } from "web3uikit";
 import HabitJournal from "./HabitJournal";
-const SingleHabit = () => {
+const SingleHabit = ({ addJournal }) => {
   return (
     <>
       <Hero
@@ -47,7 +47,7 @@ const SingleHabit = () => {
           </div>
         </React.Fragment>
       </Hero>
-      <HabitJournal />
+      <HabitJournal addJournal={addJournal} />
     </>
   );
 };
