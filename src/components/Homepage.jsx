@@ -6,7 +6,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 
-const HomePage = ({ addHabit, account, getHabitById, getAllHabitIds }) => {
+const HomePage = ({
+  addHabit,
+  account,
+  getHabitById,
+  getAllHabitIds,
+  onConnect,
+}) => {
   const [habits, setHabits] = useState([]);
   const [habitIds, setHabitIds] = useState([]);
 
@@ -14,7 +20,7 @@ const HomePage = ({ addHabit, account, getHabitById, getAllHabitIds }) => {
     if (account) {
       const result = await getAllHabitIds();
       setHabitIds(result);
-      const habits = await Promise.all[result.map((id) => getHabitById(id))];
+      const habits = await Promise.all([result.map((id) => getHabitById(id))]);
       setHabits(habits);
     }
   });
@@ -37,12 +43,12 @@ const HomePage = ({ addHabit, account, getHabitById, getAllHabitIds }) => {
               borderRadius: "1rem",
             }}
           >
-            <div>{habits && habits.length}</div>
+            <div>{JSON.stringify(habits)}</div>
             <HabitsList addHabit={addHabit} />
           </div>
         </>
       ) : (
-        <HowToUse />
+        <HowToUse onConnect={onConnect} />
       )}
     </React.Fragment>
   );
