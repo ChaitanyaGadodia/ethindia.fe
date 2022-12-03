@@ -14,15 +14,16 @@ const formStyle = {
 const INTERVALS = [
   { label: "Daily", id: 1 },
   { label: "Weekly", id: 2 },
-  { label: "Monhtly", id: 3 },
+  { label: "Monthly", id: 3 },
   { label: "Once, at the end", id: 4 },
 ];
 
 const INITIAL_STATE = {
   openModal: false,
+  goal: "",
   description: "",
   interval: "Daily",
-  parner: "",
+  partner: "",
   amount: undefined,
   endDate: undefined,
 };
@@ -34,7 +35,7 @@ export default class AddHabit extends React.PureComponent {
   }
 
   render() {
-    const { description, interval, partner, amount, endDate, openModal } =
+    const { goal, description, interval, partner, amount, endDate, openModal } =
       this.state;
 
     return (
@@ -54,8 +55,8 @@ export default class AddHabit extends React.PureComponent {
           <div style={formStyle}>
             <Input
               label="Your Goal"
-              onChange={(e) => this.setState({ description: e.target.value })}
-              value={description}
+              onChange={(e) => this.setState({ goal: e.target.value })}
+              value={goal}
               style={inputStyle}
             />
             <TextArea
