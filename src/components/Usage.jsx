@@ -15,9 +15,9 @@ const HowToUse = () => {
         <strong>How to Use</strong>
       </Typography>
       <Stepper
-        onComplete={function noRefCheck() {}}
-        onNext={function noRefCheck() {}}
-        onPrev={function noRefCheck() {}}
+        // onComplete={() => {}}
+        // onNext={() => {}}
+        // onPrev={() => {}}
         completeMessage=""
         completeTitle="Connect your wallet now and be ready to stick to your goals."
         step={1}

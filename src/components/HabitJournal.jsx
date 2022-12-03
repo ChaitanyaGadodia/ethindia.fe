@@ -1,0 +1,36 @@
+import * as React from "react";
+import { DatePicker, TextArea } from "web3uikit";
+import FileUploader from "./FileUploader";
+
+const inputStyle = {
+  margin: "10px",
+};
+
+export default class HabitJournal extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fileUrls: [],
+      journal: undefined,
+    };
+  }
+
+  render() {
+    const { fileUrls, journal } = this.state;
+    return (
+      <div style={{ width: "320px", padding: "10px" }}>
+        <DatePicker disabled label="Record date" style={inputStyle} />
+        <TextArea
+          label="My Commitment Journal"
+          value={journal}
+          onChange={(e) => this.setState({ journal: e.target.value })}
+          style={inputStyle}
+        />
+        <FileUploader
+          images={fileUrls}
+          setImages={(val) => this.setState({ fileUrls: val })}
+        />
+      </div>
+    );
+  }
+}
