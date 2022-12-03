@@ -18,7 +18,7 @@ const HomePage = ({
 }) => {
   const [habits, setHabits] = useState([]);
   const [habitIds, setHabitIds] = useState([]);
-
+  const [fetching, setFetching] = useState(true);
   // const fetchHabits = useCallback(async () => {
   //   if (account) {
   //     const result = await getAllHabitIds();
@@ -42,20 +42,34 @@ const HomePage = ({
     contract
       .getUserHabits(account)
       .then((res) => {
+        const habitsmap = [];
         res.map((r) => {
           contract
             .getHabit(r)
             .then((res2) => {
+              const durationInSeconds = res2[5].toNumber() * res2[6].toNumber();
+              let durationText = "1 day";
+              if (durationInSeconds >= 2629800) {
+                durationText =
+                  (durationInSeconds / 2629800).toString() + " months";
+              } else if (durationInSeconds >= 604800) {
+                durationText =
+                  (durationInSeconds / 604800).toString() + " weeks";
+              } else if (durationInSeconds >= 86400) {
+                durationText = (durationInSeconds / 86400).toString() + " days";
+              }
+
               const habitObj = {
                 goal: res2[1],
                 description: res2[2],
-                amount: ethers.utils.formatEther(res2[5].toString()),
-                duration: res2[5].toNumber() * res2[6].toNumber(), // convert to no.
+                amount: ethers.utils.formatEther(res2[4]),
+                duration: durationText,
                 status: res2[7] ? "COMPLETED" : "ACTIVE",
                 successCount: res2[8].toNumber(),
                 missedCount: res2[9].toNumber(),
               };
-              setHabits([...habits, habitObj]);
+              habitsmap.push(habitObj);
+              setHabits(habitsmap);
             })
             .catch((e) => {});
         });
