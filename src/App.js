@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BannerStrip } from 'web3uikit';
 import './App.css';
@@ -29,8 +29,25 @@ function App() {
         setSigner(tempSigner);
         const tempContracts = new ethers.Contract(CONTRACT_ADDRESS, contract_abi, tempSigner);
         setContract(tempContracts);
-      })
+      });
+
+      window.ethereum.on('accountsChanged', (accounts) => {
+        // If user has locked/logout from MetaMask, this resets the accounts array to empty
+        if (!accounts.length) {
+          // logic to handle what happens once MetaMask is locked
+          setAccount(null);
+        } else {
+          setAccount(accounts[0]);
+        }
+      });
+
+      window.ethereum.on('chainChanged', () => {
+        // If user has locked/logout from MetaMask, this resets the accounts array to empty
+        setAccount(null);
+      });
+
     } else {
+      alert("Need to install Metamask!");
       throw new Error("Need to install Metamask!")
     }
   }
@@ -58,13 +75,18 @@ function App() {
     const result = await contract.report(habitId, journalEntry, proofUrl);
     return result
   }
+  useEffect(() => {
+    if (window.ethereum.isConnected()) {
+      connectWalletHandler();
+    }
+  }, []);
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Header onConnect={connectWalletHandler} />
+        <Header account={account} onConnect={connectWalletHandler} />
         <Routes>
-          <Route exact path="/" element={<Homepage addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
+          <Route exact path="/" element={<Homepage onConnect={connectWalletHandler} addHabit={addHabit} account={account} getAllHabitIds={getAllHabitIds} getHabitById={getHabitById} />} />
           <Route exact path="/habit/:id" element={<SingleHabit addJournal={addJournal} />} />
           <Route exact path="*" element={<BannerStrip text="404: Page Not Found" type="error" />} />
         </Routes>
