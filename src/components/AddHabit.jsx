@@ -41,6 +41,8 @@ export default class AddHabit extends React.PureComponent {
     return (
       <>
         <Button
+          color="green"
+          theme="colored"
           onClick={() => this.setState({ openModal: true })}
           text="Add Habit"
         />
