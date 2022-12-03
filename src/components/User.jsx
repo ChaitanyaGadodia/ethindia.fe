@@ -100,7 +100,9 @@ export default function HabitsList() {
           tabStyle="bulbUnion"
         >
           {HABIT_STATUS.map((status) => {
-            return <Tab tabKey={status.key} tabName={status.value} />;
+            return (
+              <Tab tabKey={status.key} tabName={`${status.value} Habits`} />
+            );
           })}
         </TabList>
         <AddHabit />
