@@ -21,8 +21,9 @@ function App() {
       {account ?
         <>
           <Dashboard />
-          <HabitsList />
-          <AddHabit />
+          <div style={{ margin: "0.5rem auto", width: "480px", padding: "0.5rem", border: "1px solid rgb(193, 216, 231)", borderRadius: "1rem" }}>
+            <HabitsList />
+          </div>
         </> : <HowToUse />}
       <HabitJournal />
     </div>
