@@ -61,6 +61,7 @@ export default class AddHabit extends React.PureComponent {
               totalReports,
               intervalInSeconds: interval,
             });
+            this.setState({ ...INITIAL_STATE })
           }}
           onCloseButtonPressed={() => this.setState({ ...INITIAL_STATE })}
           width="500px"
