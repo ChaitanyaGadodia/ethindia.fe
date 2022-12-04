@@ -11,7 +11,7 @@ const stepperDiv = {
 const HowToUse = ({ onConnect }) => {
   return (
     <div style={stepperDiv}>
-      <Typography variant="h1">
+      <Typography variant="h1" style={{ marginBottom: "1rem" }}>
         <strong>How to Use</strong>
       </Typography>
       <Stepper
