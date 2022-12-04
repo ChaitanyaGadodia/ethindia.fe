@@ -12,7 +12,7 @@ const HowToUse = ({ onConnect }) => {
   return (
     <div style={stepperDiv}>
       <Typography variant="h1" style={{ marginBottom: "1rem" }}>
-        <strong>How to Use</strong>
+        <strong>How it works?</strong>
       </Typography>
       <Stepper
         onComplete={onConnect}
