@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   openModal: false,
   title: "",
   commitment: "",
-  interval: "Daily",
+  interval: INTERVALS[0],
   partner: "",
   amount: "",
   endDate: undefined,
@@ -53,15 +53,15 @@ export default class AddHabit extends React.PureComponent {
         <Modal
           isVisible={openModal}
           onCancel={() => this.setState({ ...INITIAL_STATE })}
-          onOk={() => {
-            addHabit({
+          onOk={async () => {
+            await addHabit({
               title,
               commitment,
               amount,
               totalReports,
-              intervalInSeconds: interval,
+              intervalInSeconds: interval.id,
             });
-            this.setState({ ...INITIAL_STATE })
+            this.setState({ ...INITIAL_STATE });
           }}
           onCloseButtonPressed={() => this.setState({ ...INITIAL_STATE })}
           width="500px"

@@ -13,7 +13,16 @@ export default function Header({ onConnect, account }) {
     <div style={header}>
       <a href="/">
         <Typography variant="H2">
-          HabETH - Ready to finally stick to your Goals?
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src="/logo.png" style={{ height: "50px", width: "50px" }} />
+            HabETH - Ready to finally stick to your Goals?
+          </div>
         </Typography>
       </a>
       <Button

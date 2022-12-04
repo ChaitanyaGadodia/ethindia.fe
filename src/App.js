@@ -62,6 +62,7 @@ function App() {
       window.location.reload();
       connectWalletHandler();
     } catch (e) {
+      window.console.log(e);
     }
   }
 
