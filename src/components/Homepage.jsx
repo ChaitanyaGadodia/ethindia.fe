@@ -51,12 +51,12 @@ const HomePage = ({
               let durationText = "1 day";
               if (durationInSeconds >= 2629800) {
                 durationText =
-                  (durationInSeconds / 2629800).toString() + " months";
+                  (durationInSeconds / 2629800).toFixed(0) + " months";
               } else if (durationInSeconds >= 604800) {
                 durationText =
-                  (durationInSeconds / 604800).toString() + " weeks";
+                  (durationInSeconds / 604800).toFixed(0) + " weeks";
               } else if (durationInSeconds >= 86400) {
-                durationText = (durationInSeconds / 86400).toString() + " days";
+                durationText = (durationInSeconds / 86400).toFixed(0) + " days";
               }
 
               const habitObj = {
