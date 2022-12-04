@@ -81,7 +81,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (window.ethereum.isConnected()) {
+    if (window.ethereum?.isConnected()) {
       connectWalletHandler();
     }
   }, []);
