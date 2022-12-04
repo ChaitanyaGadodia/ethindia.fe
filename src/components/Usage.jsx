@@ -51,9 +51,15 @@ const HowToUse = ({ onConnect }) => {
               <p>
                 Report whether you completed the habit or not for a particular
                 interval. This will be verified by your accountability partner.
+                Your amount is deducted if: <br />
+                1) You report that you were unsuccessful; or <br /> 2) Your
+                accountability partner reports that you were unsuccessful; or{" "}
+                <br />
+                3) You fail to make a required report by the end of the day
+                (11:59 P.M.) of a required reporting day.
               </p>
             ),
-            title: "Report",
+            title: "Journal Progress",
           },
         ]}
       />
