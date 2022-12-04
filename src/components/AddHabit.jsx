@@ -84,7 +84,7 @@ export default class AddHabit extends React.PureComponent {
             <Select
               label="I'd like to report"
               onChange={(e) => {
-                this.setState({ interval: e[0] });
+                this.setState({ interval: e });
               }}
               value={interval}
               options={INTERVALS}

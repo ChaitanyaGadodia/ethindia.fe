@@ -11,7 +11,7 @@ const header = {
 export default function Header({ onConnect, account }) {
   return (
     <div style={header}>
-      <a href="/">
+      <a href="/" style={{ textDecoration: "none" }}>
         <Typography variant="H2">
           <div
             style={{
